@@ -1,0 +1,84 @@
+# =====================================================================
+#  .gitignore für ein Rust-Monorepo (mehrere Cargo-Projekte / Workspaces)
+#
+#  Muster OHNE führenden Slash greifen in jeder Verzeichnistiefe,
+#  also z. B. projekt-a/target/ genauso wie tools/cli/target/.
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# Build-Artefakte
+# ---------------------------------------------------------------------
+target/
+**/*.rs.bk
+*.pdb
+
+# Cargo.lock wird bewusst NICHT ignoriert (Begründung siehe Chat).
+
+# ---------------------------------------------------------------------
+# Secrets & Zugangsdaten
+# ---------------------------------------------------------------------
+# crates.io-Token (Projekt-lokal). .cargo/config.toml bleibt versioniert!
+.cargo/credentials
+.cargo/credentials.toml
+
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
+# Falls du Test-Zertifikate als Fixtures einchecken willst, gezielt freigeben:
+# !**/tests/fixtures/*.pem
+
+# ---------------------------------------------------------------------
+# Tests, Coverage, Profiling, Fuzzing
+# ---------------------------------------------------------------------
+*.profraw
+*.profdata
+lcov.info
+cobertura.xml
+tarpaulin-report.*
+mutants.out*/
+flamegraph.svg
+perf.data*
+
+# cargo-fuzz: Korpus & Crashes sind lokal, fuzz_targets/ bleibt drin
+fuzz/corpus/
+fuzz/artifacts/
+fuzz/coverage/
+
+# ---------------------------------------------------------------------
+# WebAssembly (wasm-pack)
+# ---------------------------------------------------------------------
+pkg/
+node_modules/
+
+# ---------------------------------------------------------------------
+# Nix / direnv
+# ---------------------------------------------------------------------
+result
+result-*
+.direnv/
+
+# ---------------------------------------------------------------------
+# IDEs & Editoren
+# ---------------------------------------------------------------------
+.idea/
+*.iml
+.fleet/
+.zed/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------------
+# Betriebssystem
+# ---------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
