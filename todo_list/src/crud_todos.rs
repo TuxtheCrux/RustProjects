@@ -1,7 +1,10 @@
 use chrono::prelude::*;
 use std::io;
-struct ToDos {
-    id: u32,
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize)]
+pub struct ToDos {
+    pub id: u32,
     title: String,
     creation_date: NaiveDate,
     deadline: Option<NaiveDate>,
@@ -9,7 +12,7 @@ struct ToDos {
     done: bool,
 }
 
-fn create_todo() -> ToDos {
+pub fn create_todo() -> ToDos {
     let mut todo_title: String = String::new();
     let mut todo: String = String::new();
     let mut deadline_input: String = String::new();

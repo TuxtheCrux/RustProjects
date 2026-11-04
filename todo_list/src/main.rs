@@ -1,5 +1,6 @@
 use std::io;
-mod create_todo;
+mod crud_todos;
+mod crud_json;
 
 fn main() {
     println!("Your Rusty Todos");
@@ -13,17 +14,17 @@ fn main() {
             .read_line(&mut user_menu_choice_input)
             .expect("Failed to read your input");
 
-        let mut user_menu_choice_input: u8 = match user_menu_choice_input.trim().parse() {
+        let user_menu_choice_input: u8 = match user_menu_choice_input.trim().parse() {
             Ok(num) => num,
             Err(_) => continue,
         };
         if user_menu_choice_input < 1 || user_menu_choice_input > 2 {
             continue;
         } else {
-            break;
+            break user_menu_choice_input;
         }
     };
-    if (user_menu_choice == 1) {
-
+    if user_menu_choice == 1 {
+        crud_todos::create_todo();
     }
 }
