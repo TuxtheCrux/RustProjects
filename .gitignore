@@ -11,8 +11,9 @@
 target/
 **/*.rs.bk
 *.pdb
+CSV/
 
-# Cargo.lock wird bewusst NICHT ignoriert (Begründung siehe Chat).
+# Cargo.lock wird bewusst NICHT ignoriert
 
 # ---------------------------------------------------------------------
 # Secrets & Zugangsdaten
