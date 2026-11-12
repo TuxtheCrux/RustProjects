@@ -11,7 +11,7 @@
 target/
 **/*.rs.bk
 *.pdb
-CSV/
+csv/
 
 # Cargo.lock wird bewusst NICHT ignoriert
 
