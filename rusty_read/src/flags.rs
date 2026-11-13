@@ -1,4 +1,5 @@
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+use std::str::FromStr;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Flags {
     Title,
     Column,
@@ -23,12 +24,31 @@ impl Flags {
         }
     }
 
+    pub fn find_flag(arg: &str) -> Option<Flags> {
+        Flags::ALL
+            .iter()
+            .find(|current| current.short_flag().eq(arg) || current.long_flag().eq(arg))
+            .copied()
+    }
+
+    pub fn show_help() {
+        println!("---HELP---");
+        Flags::ALL.iter().for_each(|current| {
+            println!(
+                "{} | {} => {}",
+                current.short_flag(),
+                current.long_flag(),
+                current.description()
+            )
+        });
+    }
+
     // Individual getters for convenience
-    pub const fn short(&self) -> &'static str {
+    pub const fn short_flag(&self) -> &'static str {
         self.details().0
     }
 
-    pub const fn long(&self) -> &'static str {
+    pub const fn long_flag(&self) -> &'static str {
         self.details().1
     }
 
@@ -43,4 +63,11 @@ impl Flags {
         Flags::Out,
         Flags::Help,
     ];
+}
+
+impl FromStr for Flags {
+    type Err = String;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Flags::find_flag(s).ok_or_else(|| format!("This flag {} doesnt exist", s))
+    }
 }

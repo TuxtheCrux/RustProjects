@@ -1,9 +1,6 @@
 use std::env;
-mod file_handler;
+use crate::arg_parser;
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let content = file_handler::read_file().unwrap();
-    for line in content {
-        println!("{}", line.join(",")); //Vec<String> cannot be displayed without joing each cell
-    }
+    arg_parser::parser();
 }
